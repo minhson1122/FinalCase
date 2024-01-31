@@ -19,12 +19,12 @@ public class PlaylistController {
         return new ResponseEntity<>(playlistService.findAll(), HttpStatus.OK);
 
     }
-    @PostMapping("/create")
-    public ResponseEntity create(@RequestBody PlayList playList){
+    @PostMapping
+    public ResponseEntity save(@RequestBody PlayList playList){
         return new ResponseEntity<>(playlistService.save(playList),HttpStatus.CREATED);
     }
-    @PutMapping("/update/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody  PlayList playList){
+    @PutMapping("/{id}")
+    public ResponseEntity save(@PathVariable Long id, @RequestBody  PlayList playList){
         playList.setId(id);
         return new ResponseEntity<>(playlistService.save(playList),HttpStatus.OK);
     }

@@ -14,12 +14,12 @@ public class SingerController {
     @Autowired
     ISingerService singerService;
 
-    @PostMapping("/create")
-    public ResponseEntity create(@RequestBody Singer singer){
+    @PostMapping
+    public ResponseEntity save(@RequestBody Singer singer){
         return new ResponseEntity<>(singerService.save(singer),HttpStatus.OK);
     }
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id ,@RequestBody Singer singer){
+    public ResponseEntity save(@PathVariable Long id ,@RequestBody Singer singer){
         singer.setId(id);
         return new ResponseEntity<>(singerService.save(singer),HttpStatus.OK);
     }

@@ -13,11 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class SingerController {
     @Autowired
     ISingerService singerService;
-
-//    @GetMapping()
-//    public ResponseEntity findByNameContaining(String name ){
-//        return new ResponseEntity<>(singerService.findByNameContaining(name), HttpStatus.OK);
-//    }
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody Singer singer){
         return new ResponseEntity<>(singerService.save(singer),HttpStatus.OK);

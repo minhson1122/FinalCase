@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class SingerController {
     @Autowired
     ISingerService singerService;
+
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody Singer singer){
         return new ResponseEntity<>(singerService.save(singer),HttpStatus.OK);

@@ -15,8 +15,8 @@ public class AlbumController {
     @Autowired
     IAlbumService albumService;
     @GetMapping
-    public ResponseEntity showAll(){
-        return new ResponseEntity<>(albumService.findAll(), HttpStatus.OK);
+    public ResponseEntity showAll(String name){
+        return new ResponseEntity<>(albumService.findAll(name), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity save(@RequestBody Album album){
@@ -31,10 +31,6 @@ public class AlbumController {
     public ResponseEntity delete(@PathVariable Long id){
         albumService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-    @GetMapping
-    public ResponseEntity findByName(String name){
-        return new ResponseEntity<>(albumService.findByName(name),HttpStatus.OK);
     }
     @GetMapping("/sort-by-likes")
     public ResponseEntity sortByLikeDesc(){

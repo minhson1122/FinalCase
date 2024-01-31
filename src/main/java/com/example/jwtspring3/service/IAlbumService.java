@@ -5,7 +5,7 @@ import com.example.jwtspring3.model.Album;
 import java.util.List;
 
 public interface IAlbumService extends IGeneralService<Album>{
-    List<Album> findByName(String name);
+    Iterable<Album> findAll(String name);
     List<Album> findAlbumByOrderByLikesDesc();
     List<Album> findAlbumByOrderByListensDesc();
     List<Album> findTop5ByOrderByLikesDesc();

@@ -13,6 +13,14 @@ public class AlbumServiceImpl implements IAlbumService {
     @Autowired
     AlbumRepository albumRepository;
     @Override
+    public Iterable<Album> findAll(String name) {
+        if (name != null){
+            return albumRepository.findAllByNameContaining(name);
+        }
+        return albumRepository.findAll();
+    }
+
+    @Override
     public Iterable<Album> findAll() {
         return albumRepository.findAll();
     }
@@ -33,11 +41,6 @@ public class AlbumServiceImpl implements IAlbumService {
     }
 
     @Override
-    public List<Album> findByName(String name) {
-        return albumRepository.findAllByNameContaining(name);
-    }
-
-    @Override
     public List<Album> findAlbumByOrderByLikesDesc() {
         return albumRepository.findAlbumByOrderByLikesDesc();
     }
@@ -54,6 +57,6 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public List<Album> findTop5ByOrderByListensDesc() {
-        return albumRepository.findAlbumByOrderByListensDesc();
+        return albumRepository.findTop5ByOrderByListensDesc();
     }
 }

@@ -1,16 +1,21 @@
 package com.example.jwtspring3.service;
 
 
+import com.example.jwtspring3.model.Role;
 import com.example.jwtspring3.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserService extends UserDetailsService {
     void save(User user);
 
     Iterable<User> findAll();
+    Iterable<User> findAllByRolesName(String roleName);
+    Iterable<User> findAllByRolesNameNot();
+
 
     User findByUsername(String username);
 

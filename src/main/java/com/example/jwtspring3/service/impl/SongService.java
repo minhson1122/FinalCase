@@ -6,13 +6,16 @@ import com.example.jwtspring3.service.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class SongService implements ISongService {
     @Autowired
     SongRepository songRepository;
+    private Map<Long, Boolean> likeStatus = new HashMap<>();
 
     @Override
     public Iterable<Song> findAll() {
@@ -33,15 +36,16 @@ public class SongService implements ISongService {
     public void remove(Long id) {
         songRepository.deleteById(id);
     }
+
     public List<Song> findAll(String name, String albumName, String singerName) {
         if (name != null && singerName != null && albumName != null) {
-            return songRepository.findAllByNameContainingAndAlbum_NameContainingAndSinger_NameContaining(name,albumName,singerName);
+            return songRepository.findAllByNameContainingAndAlbum_NameContainingAndSinger_NameContaining(name, albumName, singerName);
         } else if (name != null && singerName != null) {
-            return songRepository.findAllByNameContainingAndSinger_NameContaining(name,singerName);
+            return songRepository.findAllByNameContainingAndSinger_NameContaining(name, singerName);
         } else if (name != null && albumName != null) {
-            return songRepository.findAllByNameContainingAndAlbum_NameContaining(name,albumName);
+            return songRepository.findAllByNameContainingAndAlbum_NameContaining(name, albumName);
         } else if (singerName != null && albumName != null) {
-            return songRepository.findAllByAlbum_NameContainingAndSinger_NameContaining(albumName,singerName);
+            return songRepository.findAllByAlbum_NameContainingAndSinger_NameContaining(albumName, singerName);
         } else if (name != null) {
             return songRepository.findAllByNameContaining(name);
         } else if (singerName != null) {
@@ -51,5 +55,24 @@ public class SongService implements ISongService {
         } else {
             return songRepository.findAll();
         }
+    }
+
+    @Override
+    public Song setLike(Long id) {
+        Optional<Song> songOpt = songRepository.findById(id);
+        if (!songOpt.isPresent()) {
+            return null;
+        }
+        Song song = songOpt.get();
+        boolean isLiked = likeStatus.getOrDefault(id, false);
+        if (isLiked) {
+            song.setLikes(song.getLikes() - 1);
+        } else {
+            song.setLikes(song.getLikes() + 1);
+        }
+        likeStatus.put(id, !isLiked);
+
+        songRepository.save(song);
+        return song;
     }
 }

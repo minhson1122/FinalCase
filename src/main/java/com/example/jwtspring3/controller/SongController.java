@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/songs")
@@ -30,5 +32,10 @@ public class SongController {
     public ResponseEntity delete(@PathVariable Long id){
     songService.remove(id);
     return new ResponseEntity<>("delete done", HttpStatus.OK);
+    }
+    @GetMapping("like/{id}")
+    public ResponseEntity setLike(@PathVariable Long id){
+
+        return new ResponseEntity<>(songService.setLike(id),HttpStatus.OK);
     }
 }

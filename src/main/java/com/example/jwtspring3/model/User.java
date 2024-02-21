@@ -24,6 +24,7 @@ public class User implements Serializable {
     private String confirmPassword;
     private boolean enabled = true;
     private String name;
+    @Column(length = 1000)
     private String avatar;
     private String phone;
     @ManyToMany(fetch = FetchType.EAGER)

@@ -3,6 +3,7 @@ package com.example.jwtspring3.controller;
 import com.example.jwtspring3.model.JwtResponse;
 import com.example.jwtspring3.model.Role;
 import com.example.jwtspring3.model.User;
+import com.example.jwtspring3.repository.RoleRepository;
 import com.example.jwtspring3.service.RoleService;
 import com.example.jwtspring3.service.UserService;
 import com.example.jwtspring3.service.impl.JwtService;
@@ -40,7 +41,6 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @GetMapping("/admin")
     public ResponseEntity<Iterable<User>> showAllUser() {
         Iterable<User> users = userService.findAllByRolesNameNot();
@@ -59,8 +59,8 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity createUser(@RequestBody User user, BindingResult bindingResult) {
+    @PostMapping("/register/{id}")
+    public ResponseEntity createUser(@RequestBody User user, BindingResult bindingResult , @PathVariable Long id) {
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -73,16 +73,22 @@ public class UserController {
         if (!userService.isCorrectConfirmPassword(user)) {
             return new ResponseEntity<>("Input confirm password",HttpStatus.OK);
         }
-        if (user.getRoles() != null) {
-            Role role = roleService.findByName("ROLE_AUTHOR");
+//        if (user.getRoles() != null){
+//            Role role = roleService.findByName("ROLE_AUTHOR");
+//            Set<Role> roles = new HashSet<>();
+//            roles.add(role);
+//            user.setRoles(roles);
+//        } else {
+//            Role role1 = roleService.findByName("ROLE_USER");
+//            Set<Role> roles1 = new HashSet<>();
+//            roles1.add(role1);
+//            user.setRoles(roles1);
+//        }
+        if (user.getRoles() == null ){
+            Role role = roleService.findById(id);
             Set<Role> roles = new HashSet<>();
             roles.add(role);
             user.setRoles(roles);
-        } else {
-            Role role1 = roleService.findByName("ROLE_USER");
-            Set<Role> roles1 = new HashSet<>();
-            roles1.add(role1);
-            user.setRoles(roles1);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
@@ -125,5 +131,17 @@ public class UserController {
         user.setConfirmPassword(userOptional.get().getConfirmPassword());
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+    @PutMapping("/admin/{id}")
+    public ResponseEntity updateEnabled(@PathVariable Long id, @RequestBody User user){
+        user = userService.getOneUser(id);
+        if (user.isEnabled() == true) {
+            user.setEnabled(false);
+            userService.save(user);
+        }else {
+            user.setEnabled(true);
+            userService.save(user);
+        }
+            return new ResponseEntity<>("Update Success", HttpStatus.OK);
     }
 }

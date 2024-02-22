@@ -16,7 +16,7 @@ public interface UserService extends UserDetailsService {
     Iterable<User> findAllByRolesName(String roleName);
     Iterable<User> findAllByRolesNameNot();
 
-
+    User getOneUser(Long id);
     User findByUsername(String username);
 
     User getCurrentUser();

@@ -35,7 +35,10 @@ public class SongController {
     }
     @GetMapping("like/{id}")
     public ResponseEntity setLike(@PathVariable Long id){
-
         return new ResponseEntity<>(songService.setLike(id),HttpStatus.OK);
+    }
+    @GetMapping("listen/{id}")
+    public ResponseEntity setListen(@PathVariable Long id){
+        return new ResponseEntity<>(songService.setListen(id),HttpStatus.OK);
     }
 }

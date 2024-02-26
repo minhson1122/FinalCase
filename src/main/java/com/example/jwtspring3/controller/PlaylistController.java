@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/playlists")
+@RequestMapping("/api/playLists")
 public class PlaylistController {
     @Autowired
     IPlaylistService playlistService;

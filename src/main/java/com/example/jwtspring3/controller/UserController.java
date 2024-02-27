@@ -71,18 +71,7 @@ public class UserController {
         }
         if (!userService.isCorrectConfirmPassword(user)) {
             return new ResponseEntity<>("Input confirm password",HttpStatus.OK);
-        }
-//        if (user.getRoles() != null){
-//            Role role = roleService.findByName("ROLE_AUTHOR");
-//            Set<Role> roles = new HashSet<>();
-//            roles.add(role);
-//            user.setRoles(roles);
-//        } else {
-//            Role role1 = roleService.findByName("ROLE_USER");
-//            Set<Role> roles1 = new HashSet<>();
-//            roles1.add(role1);
-//            user.setRoles(roles1);
-//        }
+        }git
         if (user.getRoles() == null ){
             Role role = roleService.findById(id);
             Set<Role> roles = new HashSet<>();

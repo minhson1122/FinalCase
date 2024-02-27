@@ -3,7 +3,6 @@ package com.example.jwtspring3.controller;
 import com.example.jwtspring3.model.JwtResponse;
 import com.example.jwtspring3.model.Role;
 import com.example.jwtspring3.model.User;
-import com.example.jwtspring3.repository.RoleRepository;
 import com.example.jwtspring3.service.RoleService;
 import com.example.jwtspring3.service.UserService;
 import com.example.jwtspring3.service.impl.JwtService;
@@ -135,13 +134,8 @@ public class UserController {
     @PutMapping("/admin/{id}")
     public ResponseEntity updateEnabled(@PathVariable Long id, @RequestBody User user){
         user = userService.getOneUser(id);
-        if (user.isEnabled() == true) {
-            user.setEnabled(false);
-            userService.save(user);
-        }else {
-            user.setEnabled(true);
-            userService.save(user);
-        }
-            return new ResponseEntity<>("Update Success", HttpStatus.OK);
+        user.setEnabled(!user.isEnabled());
+        userService.save(user);
+        return new ResponseEntity<>("Update Success", HttpStatus.OK);
     }
 }

@@ -71,8 +71,15 @@ public class SongService implements ISongService {
             song.setLikes(song.getLikes() + 1);
         }
         likeStatus.put(id, !isLiked);
-
         songRepository.save(song);
         return song;
+    }
+
+    @Override
+    public Song setListen(Long id) {
+        Optional<Song> songOpt = songRepository.findById(id);
+        songOpt.get().setListens(songOpt.get().getListens()+1);
+        songRepository.save(songOpt.get());
+        return songOpt.get();
     }
 }

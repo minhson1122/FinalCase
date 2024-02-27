@@ -32,4 +32,8 @@ public class SongPlaylistController {
         songPlaylistService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Long id){
+        return new ResponseEntity<>(songPlaylistService.findAllByPlayListId(id),HttpStatus.OK);
+    }
 }

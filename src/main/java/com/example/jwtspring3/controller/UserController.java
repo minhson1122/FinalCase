@@ -40,21 +40,26 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    @GetMapping("/users")
+    @GetMapping("/admin")
     public ResponseEntity<Iterable<User>> showAllUser() {
-        Iterable<User> users = userService.findAll();
+        Iterable<User> users = userService.findAllByRolesNameNot();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/admin")
     public ResponseEntity<Iterable<User>> showAllUserByAdmin() {
-        Iterable<User> users = userService.findAll();
+        Iterable<User> users = userService.findAllByRolesName("ROLE_USER");
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity createUser(@RequestBody User user, BindingResult bindingResult) {
+    @GetMapping("/admin/authors")
+    public ResponseEntity<Iterable<User>> showAllAuthorByAdmin() {
+        Iterable<User> users = userService.findAllByRolesName("ROLE_AUTHOR");
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PostMapping("/register/{id}")
+    public ResponseEntity createUser(@RequestBody User user, BindingResult bindingResult , @PathVariable Long id) {
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -67,16 +72,22 @@ public class UserController {
         if (!userService.isCorrectConfirmPassword(user)) {
             return new ResponseEntity<>("Input confirm password",HttpStatus.OK);
         }
-        if (user.getRoles() != null) {
-            Role role = roleService.findByName("ROLE_ADMIN");
+//        if (user.getRoles() != null){
+//            Role role = roleService.findByName("ROLE_AUTHOR");
+//            Set<Role> roles = new HashSet<>();
+//            roles.add(role);
+//            user.setRoles(roles);
+//        } else {
+//            Role role1 = roleService.findByName("ROLE_USER");
+//            Set<Role> roles1 = new HashSet<>();
+//            roles1.add(role1);
+//            user.setRoles(roles1);
+//        }
+        if (user.getRoles() == null ){
+            Role role = roleService.findById(id);
             Set<Role> roles = new HashSet<>();
             roles.add(role);
             user.setRoles(roles);
-        } else {
-            Role role1 = roleService.findByName("ROLE_USER");
-            Set<Role> roles1 = new HashSet<>();
-            roles1.add(role1);
-            user.setRoles(roles1);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
@@ -120,5 +131,11 @@ public class UserController {
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
+    @PutMapping("/admin/{id}")
+    public ResponseEntity updateEnabled(@PathVariable Long id, @RequestBody User user){
+        user = userService.getOneUser(id);
+        user.setEnabled(!user.isEnabled());
+        userService.save(user);
+        return new ResponseEntity<>("Update Success", HttpStatus.OK);
+    }
 }

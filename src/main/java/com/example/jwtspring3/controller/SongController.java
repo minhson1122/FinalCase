@@ -19,6 +19,10 @@ public class SongController {
     public ResponseEntity findAll(String name, String albumName, String singerName){
         return new ResponseEntity<>(songService.findAll(name,albumName,singerName), HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity findAllByAuthorId(@PathVariable Long id){
+        return new ResponseEntity<>(songService.findAllByAuthorId(id), HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity save(@RequestBody Song song){
         return new ResponseEntity<>(songService.save(song), HttpStatus.OK);

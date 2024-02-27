@@ -46,7 +46,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/usersf")
     public ResponseEntity<Iterable<User>> showAllUserByAdmin() {
         Iterable<User> users = userService.findAllByRolesName("ROLE_USER");
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -71,7 +71,7 @@ public class UserController {
         }
         if (!userService.isCorrectConfirmPassword(user)) {
             return new ResponseEntity<>("Input confirm password",HttpStatus.OK);
-        }git
+        }
         if (user.getRoles() == null ){
             Role role = roleService.findById(id);
             Set<Role> roles = new HashSet<>();

@@ -82,4 +82,9 @@ public class SongService implements ISongService {
         songRepository.save(songOpt.get());
         return songOpt.get();
     }
+
+    @Override
+    public List<Song> findAllByAuthorId(Long id) {
+        return songRepository.findAllByAuthorId(id);
+    }
 }

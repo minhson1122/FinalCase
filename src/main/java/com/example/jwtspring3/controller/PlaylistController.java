@@ -15,22 +15,30 @@ public class PlaylistController {
     IPlaylistService playlistService;
 
     @GetMapping
-    public ResponseEntity findAll(){
+    public ResponseEntity findAll() {
         return new ResponseEntity<>(playlistService.findAll(), HttpStatus.OK);
 
     }
+
     @PostMapping
-    public ResponseEntity save(@RequestBody PlayList playList){
-        return new ResponseEntity<>(playlistService.save(playList),HttpStatus.CREATED);
+    public ResponseEntity save(@RequestBody PlayList playList) {
+        return new ResponseEntity<>(playlistService.save(playList), HttpStatus.CREATED);
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity save(@PathVariable Long id, @RequestBody  PlayList playList){
+    public ResponseEntity save(@PathVariable Long id, @RequestBody PlayList playList) {
         playList.setId(id);
-        return new ResponseEntity<>(playlistService.save(playList),HttpStatus.OK);
+        return new ResponseEntity<>(playlistService.save(playList), HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id){
+    public ResponseEntity delete(@PathVariable Long id) {
         playlistService.remove(id);
-        return new ResponseEntity("done delete",HttpStatus.OK);
+        return new ResponseEntity("done delete", HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findAllByUserId(@PathVariable Long id) {
+        return new ResponseEntity<>(playlistService.findAllByUserId(id),HttpStatus.OK);
     }
 }

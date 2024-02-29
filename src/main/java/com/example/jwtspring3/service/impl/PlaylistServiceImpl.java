@@ -30,4 +30,9 @@ public class PlaylistServiceImpl implements IPlaylistService {
     public void remove(Long id) {
         playlistRepository.deleteById(id);
     }
+
+    @Override
+    public Object findAllByUserId(Long id) {
+        return playlistRepository.findAllByUserId(id);
+    }
 }

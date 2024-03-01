@@ -23,6 +23,10 @@ public class SongController {
     public ResponseEntity findAllByAuthorId(@PathVariable Long id){
         return new ResponseEntity<>(songService.findAllByAuthorId(id), HttpStatus.OK);
     }
+    @GetMapping("/song/{id}")
+    public ResponseEntity getOneSong(@PathVariable Long id){
+        return new ResponseEntity<>(songService.getOneSong(id), HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity save(@RequestBody Song song){
         return new ResponseEntity<>(songService.save(song), HttpStatus.OK);

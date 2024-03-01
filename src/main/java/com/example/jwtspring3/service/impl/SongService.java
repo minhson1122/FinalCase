@@ -87,4 +87,9 @@ public class SongService implements ISongService {
     public List<Song> findAllByAuthorId(Long id) {
         return songRepository.findAllByAuthorId(id);
     }
+
+    @Override
+    public Song getOneSong(Long id) {
+        return songRepository.findSongById(id);
+    }
 }

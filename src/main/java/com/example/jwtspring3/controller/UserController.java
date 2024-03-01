@@ -46,7 +46,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/admin/usersf")
+    @GetMapping("/admin/users")
     public ResponseEntity<Iterable<User>> showAllUserByAdmin() {
         Iterable<User> users = userService.findAllByRolesName("ROLE_USER");
         return new ResponseEntity<>(users, HttpStatus.OK);

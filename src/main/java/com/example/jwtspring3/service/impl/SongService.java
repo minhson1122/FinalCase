@@ -92,4 +92,9 @@ public class SongService implements ISongService {
     public Song getOneSong(Long id) {
         return songRepository.findSongById(id);
     }
+
+    @Override
+    public Object findTop10ByListens() {
+        return songRepository.findTop10ByListens();
+    }
 }

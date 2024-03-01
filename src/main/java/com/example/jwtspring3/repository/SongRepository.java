@@ -21,5 +21,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     List<Song> findAllByNameContainingAndAlbum_NameContainingAndSinger_NameContaining(String name, String albumName, String singerName);
     List<Song> findAllByAuthorId (Long id);
+    @Query("SELECT s FROM Song s ORDER BY s.listens DESC")
+    List<Song> findTop10ByListens();
     Song findSongById(Long id);
 }

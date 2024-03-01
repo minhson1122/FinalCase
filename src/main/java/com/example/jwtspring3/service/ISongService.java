@@ -10,5 +10,6 @@ public interface ISongService extends IGeneralService<Song>{
     Song setLike(Long id);
     Song setListen(Long id);
     List<Song> findAllByAuthorId(Long id);
+    Object findTop10ByListens();
     Song getOneSong(Long id);
 }

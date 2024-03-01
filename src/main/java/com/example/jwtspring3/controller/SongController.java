@@ -49,4 +49,8 @@ public class SongController {
     public ResponseEntity setListen(@PathVariable Long id){
         return new ResponseEntity<>(songService.setListen(id),HttpStatus.OK);
     }
+    @GetMapping("top")
+    public ResponseEntity topSong(){
+        return new ResponseEntity<>(songService.findTop10ByListens(),HttpStatus.OK);
+    }
 }

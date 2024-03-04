@@ -1,6 +1,7 @@
 package com.example.jwtspring3.controller;
 
 import com.example.jwtspring3.model.Song;
+import com.example.jwtspring3.repository.SongRepository;
 import com.example.jwtspring3.service.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ import java.util.Optional;
 public class SongController {
     @Autowired
     ISongService songService;
+
+    @Autowired
+    SongRepository songRepository;
     @GetMapping
     public ResponseEntity findAll(String name, String albumName, String singerName){
         return new ResponseEntity<>(songService.findAll(name,albumName,singerName), HttpStatus.OK);
@@ -52,5 +56,10 @@ public class SongController {
     @GetMapping("top")
     public ResponseEntity topSong(){
         return new ResponseEntity<>(songService.findTop10ByListens(),HttpStatus.OK);
+    }
+
+    @GetMapping("/top5-new-song")
+    public ResponseEntity getTop5NewSong(){
+        return new ResponseEntity(songRepository.findTop5ByOrderByTimeDesc(),HttpStatus.OK);
     }
 }

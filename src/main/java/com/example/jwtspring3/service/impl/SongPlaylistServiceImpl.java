@@ -36,4 +36,14 @@ public class SongPlaylistServiceImpl implements ISongPlaylistService {
     public Object findAllByPlayListId(Long id) {
         return  songPlaylistRepository.findAllByPlayListId(id);
     }
+
+    @Override
+    public Iterable<SongPlayList> findAllBySongId(Long id) {
+        return songPlaylistRepository.findAllBySongId(id);
+    }
+
+    @Override
+    public void removeAllBySongId(Iterable<SongPlayList> songPlayLists) {
+        songPlaylistRepository.deleteAll(songPlayLists);
+    }
 }

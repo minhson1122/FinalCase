@@ -32,4 +32,10 @@ public class SingerController {
     public ResponseEntity findAll(){
         return new ResponseEntity(singerService.findAll(),HttpStatus.OK);
     }
+    @GetMapping("/author/{id}")
+    public ResponseEntity findAllByAuthorId(@PathVariable Long id){
+        return new ResponseEntity<>(singerService.findAllByAuthorId(id), HttpStatus.OK);
+    }
+    @GetMapping("/singer/{id}")
+    public ResponseEntity getOneSinger(@PathVariable Long id) {return new ResponseEntity<>(singerService.getOneSinger(id), HttpStatus.OK);}
  }

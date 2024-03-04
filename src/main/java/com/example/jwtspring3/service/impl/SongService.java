@@ -1,6 +1,8 @@
 package com.example.jwtspring3.service.impl;
 
 import com.example.jwtspring3.model.Song;
+import com.example.jwtspring3.model.SongPlayList;
+import com.example.jwtspring3.repository.SongPlaylistRepository;
 import com.example.jwtspring3.repository.SongRepository;
 import com.example.jwtspring3.service.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,10 @@ import java.util.Optional;
 public class SongService implements ISongService {
     @Autowired
     SongRepository songRepository;
+    @Autowired
+    SongPlaylistServiceImpl songPlaylistService;
+    @Autowired
+    SongPlaylistRepository songPlaylistRepository;
     private Map<Long, Boolean> likeStatus = new HashMap<>();
 
     @Override
@@ -34,6 +40,8 @@ public class SongService implements ISongService {
 
     @Override
     public void remove(Long id) {
+        Iterable<SongPlayList> songPlayList = songPlaylistService.findAllBySongId(id);
+        songPlaylistService.removeAllBySongId(songPlayList);
         songRepository.deleteById(id);
     }
 

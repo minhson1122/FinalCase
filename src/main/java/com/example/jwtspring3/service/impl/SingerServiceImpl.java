@@ -38,4 +38,13 @@ public class SingerServiceImpl implements ISingerService {
         return singerRepository.findAllByNameContaining(name);
     }
 
+    @Override
+    public List<Singer> findAllByAuthorId(Long id) {
+        return singerRepository.findAllByAuthorId(id);
+    }
+
+    @Override
+    public Singer getOneSinger(Long id) {
+        return singerRepository.findSingerById(id);
+    }
 }

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface SingerRepository extends JpaRepository<Singer, Long> {
     List<Singer> findAllByNameContaining(String name);
+    List<Singer> findAllByAuthorId(Long id);
+    Singer findSingerById(Long id);
 }

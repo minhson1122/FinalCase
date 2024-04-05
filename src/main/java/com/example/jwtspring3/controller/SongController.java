@@ -45,11 +45,11 @@ public class SongController {
     songService.remove(id);
     return new ResponseEntity<>("delete done", HttpStatus.OK);
     }
-    @GetMapping("like/{id}")
+    @GetMapping("likes/{id}")
     public ResponseEntity setLike(@PathVariable Long id){
         return new ResponseEntity<>(songService.setLike(id),HttpStatus.OK);
     }
-    @GetMapping("listen/{id}")
+    @GetMapping("listens/{id}")
     public ResponseEntity setListen(@PathVariable Long id){
         return new ResponseEntity<>(songService.setListen(id),HttpStatus.OK);
     }
@@ -61,5 +61,9 @@ public class SongController {
     @GetMapping("/top5-new-song")
     public ResponseEntity getTop5NewSong(){
         return new ResponseEntity(songRepository.findTop5ByOrderByTimeDesc(),HttpStatus.OK);
+    }
+    @GetMapping("/search")
+    public ResponseEntity findSongById(Long id){
+        return new ResponseEntity<>(songService.findById(id),HttpStatus.OK);
     }
 }

@@ -12,5 +12,6 @@ public interface ISongService extends IGeneralService<Song>{
     List<Song> findAllByAuthorId(Long id);
     Object findTop10ByListens();
     Song getOneSong(Long id);
+    List<Song>search(String search);
 
 }

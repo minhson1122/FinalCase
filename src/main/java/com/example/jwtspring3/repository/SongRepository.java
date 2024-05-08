@@ -26,4 +26,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     Song findSongById(Long id);
 
     List<Song> findTop5ByOrderByTimeDesc();
+    @Query("SELECT s FROM Song s WHERE s.name LIKE %:search% OR s.singer.name LIKE %:search% OR s.category.name LIKE %:search% or s.album.name LIKE %:search%")
+    List<Song> searchSongs( String search);
 }

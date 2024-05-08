@@ -102,6 +102,11 @@ public class SongService implements ISongService {
     }
 
     @Override
+    public List<Song> search(String search) {
+        return songRepository.searchSongs(search);
+    }
+
+    @Override
     public Object findTop10ByListens() {
         return songRepository.findTop10ByListens();
     }

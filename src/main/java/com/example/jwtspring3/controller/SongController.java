@@ -65,5 +65,8 @@ public class SongController {
     @GetMapping("/search")
     public ResponseEntity findSongById(Long id){
         return new ResponseEntity<>(songService.findById(id),HttpStatus.OK);
+    } @GetMapping("/search/v2")
+    public ResponseEntity searchSongs(@RequestParam   String search){
+        return new ResponseEntity<>(songService.search(search),HttpStatus.OK);
     }
 }

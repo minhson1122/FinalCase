@@ -59,4 +59,9 @@ public class AlbumServiceImpl implements IAlbumService {
     public List<Album> findTop5ByOrderByListensDesc() {
         return albumRepository.findTop5ByOrderByListensDesc();
     }
+
+    @Override
+    public List<Album> findAlbumByUserId(Long id) {
+        return albumRepository.findAlbumByUserId(id);
+    }
 }

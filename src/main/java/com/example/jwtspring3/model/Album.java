@@ -11,16 +11,27 @@ public class Album {
     private String avatar;
     private Long likes;
     private Long listens;
+    @ManyToOne
+    private User user;
 
-    public Album(Long id, String name, String avatar, Long likes, Long listens) {
+    public Album(Long id, String name, String avatar, Long likes, Long listens, User user) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
         this.likes = likes;
         this.listens = listens;
+        this.user = user;
     }
 
     public Album() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

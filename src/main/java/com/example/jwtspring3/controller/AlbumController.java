@@ -48,4 +48,8 @@ public class AlbumController {
     public ResponseEntity findTop5Listens(){
         return new ResponseEntity<>(albumService.findTop5ByOrderByListensDesc(), HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity findAlbumByUserId(@PathVariable Long id){
+        return new ResponseEntity<>(albumService.findAlbumByUserId(id), HttpStatus.OK);
+    }
 }

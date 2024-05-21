@@ -10,4 +10,5 @@ public interface IAlbumService extends IGeneralService<Album>{
     List<Album> findAlbumByOrderByListensDesc();
     List<Album> findTop5ByOrderByLikesDesc();
     List<Album> findTop5ByOrderByListensDesc();
+    List<Album>findAlbumByUserId(Long id);
 }

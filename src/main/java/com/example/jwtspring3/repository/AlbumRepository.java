@@ -14,4 +14,5 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
     List<Album> findAlbumByOrderByListensDesc();
     List<Album> findTop5ByOrderByLikesDesc();
     List<Album> findTop5ByOrderByListensDesc();
+    List<Album>findAlbumByUserId(Long id);
 }
